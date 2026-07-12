@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ru">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>История выплат — ChainFund</title>
+      <link rel="stylesheet" href="css/shared.css">
+   </head>
+   <body>
+      <script src="data.js"></script><script>mountNav()</script>
+      <main class="container content">
+         <a class="back" href="dashboard.html">← Назад</a>
+         <h1 class="page-title">ИСТОРИЯ ВЫПЛАТ</h1>
+         <p class="lead" id="campaignName"></p>
+         <div class="campaign-layout mt">
+            <div class="table">
+               <div class="tr head cols-3">
+                  <div>№</div>
+                  <div>Дата</div>
+                  <div class="right">Сумма</div>
+               </div>
+               <div id="rounds"></div>
+            </div>
+            <div id="detail" class="card muted">Выберите раунд для просмотра</div>
+         </div>
+      </main>
+      <script src="js/history.js"></script>
+   </body>
+</html>

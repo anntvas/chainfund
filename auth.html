@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>Вход — ChainFund</title>
+      <link rel="stylesheet" href="css/shared.css">
+   </head>
+   <body>
+      <script src="data.js"></script><script>mountNav()</script>
+      <main class="content container">
+         <div class="form-card card">
+            <div class="center">
+               <div class="brand-mark" style="margin:auto;width:50px;height:50px">◈</div>
+               <h1 class="page-title" style="font-size:34px">ДОБРО ПОЖАЛОВАТЬ</h1>
+               <p class="muted">Создайте аккаунт и подключите кошелёк</p>
+            </div>
+            <form id="authForm">
+               <div class="field"><label class="label">Имя пользователя</label><input class="input" id="username" placeholder="crypto_user" required></div>
+               <div class="grid grid-2">
+                  <div class="field"><label class="label">Имя</label><input class="input" id="firstName" placeholder="Иван"></div>
+                  <div class="field"><label class="label">Фамилия</label><input class="input" id="lastName" placeholder="Петров"></div>
+               </div>
+               <div class="notice mb mono small">Кошелёк: <span class="green">0xA8F2...D631</span></div>
+               <button class="btn btn-primary" style="width:100%">Зарегистрироваться / подключить MetaMask</button>
+            </form>
+         </div>
+      </main>
+      <script src="js/auth.js"></script>   
+   </body>
+</html>
