@@ -2,27 +2,188 @@
 <html lang="ru">
    <head>
       <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
+
+      <meta
+         name="viewport"
+         content="width=device-width, initial-scale=1"
+      >
+
+      <meta
+         name="description"
+         content="Создание новой кампании на платформе ChainFund."
+      >
+
       <title>Создать кампанию — ChainFund</title>
-      <link rel="stylesheet" href="css/shared.css">
+
+      <link
+         rel="stylesheet"
+         href="css/shared.css"
+      >
    </head>
+
    <body>
-      <script src="data.js"></script><script>mountNav()</script>
+      <header id="site-header"></header>
+
       <main class="container content">
+         <a
+            class="back"
+            href="dashboard.html"
+         >
+            ← Назад
+         </a>
+
          <div class="form-card">
-            <h1 class="page-title">СОЗДАТЬ КАМПАНИЮ</h1>
-            <p class="lead mb">После подтверждения MetaMask кампания появится на платформе.</p>
-            <form class="card" id="createForm">
-               <div class="field"><label class="label">Название проекта</label><input id="title" class="input" required placeholder="Solar Farm Delta"></div>
-               <div class="field"><label class="label">Описание</label><textarea id="description" class="input" placeholder="Описание проекта..."></textarea></div>
-               <div class="grid grid-2">
-                  <div class="field"><label class="label">Целевая сумма (ETH)</label><input id="goal" class="input mono" type="number" min="0.1" step="0.1" required></div>
-                  <div class="field"><label class="label">Дата окончания</label><input id="endDate" class="input mono" type="date" required></div>
+            <h1 class="page-title">
+               СОЗДАТЬ КАМПАНИЮ
+            </h1>
+
+            <p class="lead mb">
+               Заполните информацию о проекте. После отправки кампания появится на платформе.
+            </p>
+
+            <div
+               id="create-error"
+               class="state-message error-message mb"
+               role="alert"
+               hidden
+            ></div>
+
+            <div
+               id="create-success"
+               class="state-message mb"
+               role="status"
+               hidden
+            ></div>
+
+            <form
+               id="create-form"
+               class="card"
+            >
+               <div class="field">
+                  <label
+                     class="label"
+                     for="campaign-title"
+                  >
+                     Название проекта
+                  </label>
+
+                  <input
+                     id="campaign-title"
+                     class="input"
+                     name="title"
+                     type="text"
+                     minlength="3"
+                     maxlength="120"
+                     placeholder="Передвижные медицинские пункты"
+                     required
+                  >
                </div>
-               <button class="btn btn-primary" style="width:100%">Создать кампанию</button>
+
+               <div class="field">
+                  <label
+                     class="label"
+                     for="campaign-description"
+                  >
+                     Описание
+                  </label>
+
+                  <textarea
+                     id="campaign-description"
+                     class="input"
+                     name="description"
+                     minlength="10"
+                     maxlength="5000"
+                     rows="7"
+                     placeholder="Расскажите о проекте..."
+                     required
+                  ></textarea>
+               </div>
+
+               <div class="grid grid-2">
+                  <div class="field">
+                     <label
+                        class="label"
+                        for="campaign-target"
+                     >
+                        Целевая сумма, VFT
+                     </label>
+
+                     <input
+                        id="campaign-target"
+                        class="input mono"
+                        name="targetAmount"
+                        type="number"
+                        min="0.000000000000000001"
+                        step="any"
+                        placeholder="10"
+                        required
+                     >
+                  </div>
+
+                  <div class="field">
+                     <label
+                        class="label"
+                        for="campaign-deadline"
+                     >
+                        Дата окончания
+                     </label>
+
+                     <input
+                        id="campaign-deadline"
+                        class="input mono"
+                        name="deadline"
+                        type="datetime-local"
+                        required
+                     >
+                  </div>
+               </div>
+
+               <div class="field">
+                  <label
+                     class="label"
+                     for="campaign-metadata-uri"
+                  >
+                     Metadata URI
+                  </label>
+
+                  <input
+                     id="campaign-metadata-uri"
+                     class="input mono"
+                     name="metadataUri"
+                     type="text"
+                     maxlength="2048"
+                     placeholder="https://example.com/metadata/project.json"
+                  >
+
+                  <p class="muted small">
+                     Поле необязательное. Можно оставить пустым.
+                  </p>
+               </div>
+
+               <div class="notice mb small">
+                  Кампания будет создана от имени текущего авторизованного пользователя.
+               </div>
+
+               <button
+                  id="create-submit-button"
+                  class="btn btn-primary"
+                  type="submit"
+                  style="width: 100%"
+               >
+                  Создать кампанию
+               </button>
             </form>
          </div>
       </main>
+
+      <footer class="footer">
+         <div class="container">
+            CHAINFUND · Децентрализованная платформа краудфандинга
+         </div>
+      </footer>
+
+      <script src="js/api.js"></script>
+      <script src="js/auth-state.js"></script>
       <script src="js/create.js"></script>
    </body>
 </html>

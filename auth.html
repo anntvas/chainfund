@@ -2,30 +2,220 @@
 <html lang="ru">
    <head>
       <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
+
+      <meta
+         name="viewport"
+         content="width=device-width, initial-scale=1"
+      >
+
+      <meta
+         name="description"
+         content="Вход и регистрация в ChainFund через локальный криптокошелёк."
+      >
+
       <title>Вход — ChainFund</title>
-      <link rel="stylesheet" href="css/shared.css">
+
+      <link
+         rel="stylesheet"
+         href="css/shared.css"
+      >
    </head>
+
    <body>
-      <script src="data.js"></script><script>mountNav()</script>
+      <header id="site-header"></header>
+
       <main class="content container">
          <div class="form-card card">
             <div class="center">
-               <div class="brand-mark" style="margin:auto;width:50px;height:50px">◈</div>
-               <h1 class="page-title" style="font-size:34px">ДОБРО ПОЖАЛОВАТЬ</h1>
-               <p class="muted">Создайте аккаунт и подключите кошелёк</p>
-            </div>
-            <form id="authForm">
-               <div class="field"><label class="label">Имя пользователя</label><input class="input" id="username" placeholder="crypto_user" required></div>
-               <div class="grid grid-2">
-                  <div class="field"><label class="label">Имя</label><input class="input" id="firstName" placeholder="Иван"></div>
-                  <div class="field"><label class="label">Фамилия</label><input class="input" id="lastName" placeholder="Петров"></div>
+               <div
+                  class="brand-mark"
+                  style="
+                     margin: auto;
+                     width: 50px;
+                     height: 50px;
+                  "
+               >
+                  ◈
                </div>
-               <div class="notice mb mono small">Кошелёк: <span class="green">0xA8F2...D631</span></div>
-               <button class="btn btn-primary" style="width:100%">Зарегистрироваться / подключить MetaMask</button>
+
+               <h1
+                  class="page-title"
+                  style="font-size: 34px"
+               >
+                  ДОБРО ПОЖАЛОВАТЬ
+               </h1>
+
+               <p class="muted">
+                  Подключите MetaMask, чтобы войти или зарегистрироваться
+               </p>
+            </div>
+
+            <div
+               id="auth-error"
+               class="state-message error-message mb"
+               role="alert"
+               hidden
+            ></div>
+
+            <div
+               id="auth-success"
+               class="state-message mb"
+               role="status"
+               hidden
+            ></div>
+
+            <div class="field">
+               <label class="label">
+                  Подключённый кошелёк
+               </label>
+
+               <div
+                  id="wallet-notice"
+                  class="notice mono small"
+               >
+                  Кошелёк не подключён
+               </div>
+            </div>
+
+            <button
+               id="connect-wallet-button"
+               class="btn"
+               type="button"
+               style="width: 100%"
+            >
+               Подключить MetaMask
+            </button>
+
+            <div class="mt">
+               <div class="between mb">
+                  <button
+                     id="show-login-button"
+                     class="btn btn-primary"
+                     type="button"
+                  >
+                     Вход
+                  </button>
+
+                  <button
+                     id="show-register-button"
+                     class="btn"
+                     type="button"
+                  >
+                     Регистрация
+                  </button>
+               </div>
+            </div>
+
+            <form id="login-form" class="mt">
+               <p class="muted small">
+                  Для входа достаточно подключённого адреса кошелька.
+               </p>
+
+               <button
+                  id="login-button"
+                  class="btn btn-primary"
+                  type="submit"
+                  style="width: 100%"
+                  disabled
+               >
+                  Войти через MetaMask
+               </button>
+            </form>
+
+            <form
+               id="register-form"
+               class="mt"
+               hidden
+            >
+               <div class="field">
+                  <label
+                     class="label"
+                     for="username"
+                  >
+                     Имя пользователя
+                  </label>
+
+                  <input
+                     id="username"
+                     class="input"
+                     name="username"
+                     type="text"
+                     minlength="3"
+                     maxlength="32"
+                     pattern="[a-zA-Z0-9_]{3,32}"
+                     placeholder="crypto_user"
+                     autocomplete="username"
+                     required
+                  >
+               </div>
+
+               <div class="grid grid-2">
+                  <div class="field">
+                     <label
+                        class="label"
+                        for="first-name"
+                     >
+                        Имя
+                     </label>
+
+                     <input
+                        id="first-name"
+                        class="input"
+                        name="firstName"
+                        type="text"
+                        minlength="1"
+                        maxlength="100"
+                        placeholder="Иван"
+                        autocomplete="given-name"
+                        required
+                     >
+                  </div>
+
+                  <div class="field">
+                     <label
+                        class="label"
+                        for="last-name"
+                     >
+                        Фамилия
+                     </label>
+
+                     <input
+                        id="last-name"
+                        class="input"
+                        name="lastName"
+                        type="text"
+                        minlength="1"
+                        maxlength="100"
+                        placeholder="Петров"
+                        autocomplete="family-name"
+                        required
+                     >
+                  </div>
+               </div>
+
+               <button
+                  id="register-button"
+                  class="btn btn-primary"
+                  type="submit"
+                  style="width: 100%"
+                  disabled
+               >
+                  Зарегистрироваться
+               </button>
             </form>
          </div>
       </main>
-      <script src="js/auth.js"></script>   
+
+      <footer class="footer">
+         <div class="container">
+            CHAINFUND · Децентрализованная платформа краудфандинга
+         </div>
+      </footer>
+
+      <script src="js/config.js"></script>
+      <script src="js/helpers.js"></script>
+      <script src="js/api.js"></script>
+      <script src="js/auth-state.js"></script>
+      <script src="js/auth.js"></script>
    </body>
 </html>

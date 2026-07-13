@@ -2,28 +2,144 @@
 <html lang="ru">
    <head>
       <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
+
+      <meta
+         name="viewport"
+         content="width=device-width, initial-scale=1"
+      >
+
+      <meta
+         name="description"
+         content="История выплат кампании ChainFund."
+      >
+
       <title>История выплат — ChainFund</title>
-      <link rel="stylesheet" href="css/shared.css">
+
+      <link
+         rel="stylesheet"
+         href="css/shared.css"
+      >
    </head>
+
    <body>
-      <script src="data.js"></script><script>mountNav()</script>
+      <header id="site-header"></header>
+
       <main class="container content">
-         <a class="back" href="dashboard.html">← Назад</a>
-         <h1 class="page-title">ИСТОРИЯ ВЫПЛАТ</h1>
-         <p class="lead" id="campaignName"></p>
-         <div class="campaign-layout mt">
-            <div class="table">
-               <div class="tr head cols-3">
-                  <div>№</div>
-                  <div>Дата</div>
-                  <div class="right">Сумма</div>
+         <a
+            id="back-link"
+            class="back"
+            href="dashboard.html"
+         >
+            ← Назад
+         </a>
+
+         <h1 class="page-title">
+            ИСТОРИЯ ВЫПЛАТ
+         </h1>
+
+         <p
+            id="campaign-name"
+            class="lead"
+         ></p>
+
+         <div
+            id="page-loading"
+            class="state-message"
+            role="status"
+         >
+            Загрузка истории выплат...
+         </div>
+
+         <div
+            id="page-error"
+            class="state-message error-message"
+            role="alert"
+            hidden
+         ></div>
+
+         <div
+            id="payouts-empty"
+            class="state-message"
+            hidden
+         >
+            У этой кампании пока нет выплат.
+         </div>
+
+         <div
+            id="history-content"
+            class="campaign-layout mt"
+            hidden
+         >
+            <section aria-labelledby="payouts-title">
+               <h2
+                  id="payouts-title"
+                  class="visually-hidden"
+               >
+                  Список выплат
+               </h2>
+
+               <div class="table">
+                  <div class="tr head cols-4">
+                     <div>№</div>
+                     <div>Дата</div>
+                     <div class="right">Получателей</div>
+                     <div class="right">Сумма</div>
+                  </div>
+
+                  <div id="payouts-list"></div>
                </div>
-               <div id="rounds"></div>
-            </div>
-            <div id="detail" class="card muted">Выберите раунд для просмотра</div>
+
+               <nav
+                  id="payout-pagination"
+                  class="pagination"
+                  aria-label="Навигация по выплатам"
+                  hidden
+               >
+                  <button
+                     id="previous-page-button"
+                     class="button button-secondary"
+                     type="button"
+                  >
+                     ← Назад
+                  </button>
+
+                  <span
+                     id="page-information"
+                     aria-live="polite"
+                  >
+                     Страница 1
+                  </span>
+
+                  <button
+                     id="next-page-button"
+                     class="button button-secondary"
+                     type="button"
+                  >
+                     Вперёд →
+                  </button>
+               </nav>
+            </section>
+
+            <aside
+               id="payout-detail"
+               class="card muted"
+               aria-live="polite"
+            >
+               Выберите выплату для просмотра подробностей
+            </aside>
          </div>
       </main>
+
+      <footer class="footer">
+         <div class="container">
+            CHAINFUND · Децентрализованная платформа краудфандинга
+         </div>
+      </footer>
+
+      <script src="js/config.js"></script>
+      <script src="js/helpers.js"></script>
+      <script src="js/api.js"></script>
+      <script src="js/auth-state.js"></script>
       <script src="js/history.js"></script>
    </body>
 </html>

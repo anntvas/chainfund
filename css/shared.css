@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 :root {
 	--bg: #080b12;
 	--fg: #e8eaf0;
@@ -66,7 +65,7 @@ textarea {
 	display: flex;
 	align-items: center;
 	gap: 10px;
-	font-family: 'Barlow Condensed';
+	font-family: 'Manrope';
 	font-weight: 800;
 	font-size: 21px;
 	letter-spacing: .04em
@@ -167,7 +166,7 @@ textarea {
 
 .hero h1,
 .page-title {
-	font-family: 'Barlow Condensed';
+	font-family: 'Manrope';
 	font-weight: 800;
 	letter-spacing: -.01em;
 	line-height: .94;
@@ -200,7 +199,7 @@ textarea {
 }
 
 .section-title h2 {
-	font-family: 'Barlow Condensed';
+	font-family: 'Manrope';
 	font-size: 28px;
 	letter-spacing: .04em;
 	margin: 0
@@ -241,7 +240,7 @@ textarea {
 }
 
 .card-title {
-	font-family: 'Barlow Condensed';
+	font-family: 'Manrope';
 	font-size: 23px;
 	font-weight: 700;
 	margin: 0 0 10px
@@ -392,6 +391,11 @@ textarea.input {
 	gap: 26px
 }
 
+#campaign-history-link {
+    display: block;
+    margin-top: 12px;
+}
+
 .sticky {
 	position: sticky;
 	top: 82px
@@ -404,7 +408,7 @@ textarea.input {
 }
 
 .stat-value {
-	font-family: 'Barlow Condensed';
+	font-family: 'Manrope';
 	font-size: 30px;
 	font-weight: 700
 }
