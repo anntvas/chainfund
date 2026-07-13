@@ -75,6 +75,9 @@ const elements = {
 
    historyLink: document.getElementById(
       "campaign-history-link"
+   ),
+   dividendsLink: document.getElementById(
+   "campaign-dividends-link"
    )
 };
 
@@ -242,6 +245,8 @@ function renderCampaign(campaign) {
 
    elements.historyLink.href =
       `history.html?campaignId=${encodeURIComponent(campaign.id)}`;
+   elements.dividendsLink.href =
+   `dividends.html?id=${encodeURIComponent(campaign.id)}`;
 }
 
 function createContributionRow(contribution) {
@@ -340,6 +345,49 @@ async function loadContributions() {
          elements.contributionsError,
          error.message || "Не удалось загрузить взносы."
       );
+   }
+}
+
+async function renderDividendsLink() {
+   const accessToken =
+      localStorage.getItem("accessToken");
+
+   elements.dividendsLink.hidden = true;
+
+   if (
+      !accessToken ||
+      !state.campaign ||
+      state.campaign.status !== "CLOSED_GOAL_REACHED"
+   ) {
+      return;
+   }
+
+   try {
+      const currentUser =
+         await api.getCurrentUser();
+
+      const currentWallet =
+         currentUser?.walletAddress?.toLowerCase();
+
+      const creatorWallet =
+         state.campaign.creator
+            ?.walletAddress
+            ?.toLowerCase();
+
+      const isCreator =
+         currentWallet &&
+         creatorWallet &&
+         currentWallet === creatorWallet;
+
+      elements.dividendsLink.hidden =
+         !isCreator;
+   } catch (error) {
+      console.error(
+         "Не удалось проверить владельца кампании:",
+         error
+      );
+
+      elements.dividendsLink.hidden = true;
    }
 }
 
@@ -609,6 +657,8 @@ async function initCampaignPage() {
       elements.campaignContent.hidden = false;
 
       renderContributionForm();
+
+      await renderDividendsLink();
 
       await loadContributions();
    } catch (error) {

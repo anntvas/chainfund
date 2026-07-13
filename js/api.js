@@ -254,6 +254,34 @@ getPayoutDistributions(
       return apiRequest(`/me/dashboard?itemsLimit=${itemsLimit}`);
    },
 
+   preparePayout(campaignId, body) {
+   return apiRequest(
+      `/campaigns/${encodeURIComponent(campaignId)}` +
+      "/payouts/prepare",
+      {
+         method: "POST",
+         headers: {
+            "Idempotency-Key": crypto.randomUUID()
+         },
+         body: JSON.stringify(body)
+      }
+   );
+},
+
+confirmPayout(campaignId, body) {
+   return apiRequest(
+      `/campaigns/${encodeURIComponent(campaignId)}` +
+      "/payouts/confirm",
+      {
+         method: "POST",
+         headers: {
+            "Idempotency-Key": crypto.randomUUID()
+         },
+         body: JSON.stringify(body)
+      }
+   );
+},
+
    logout(refreshToken = localStorage.getItem("refreshToken")) {
       return apiRequest("/auth/logout", {
          method: "POST",
@@ -263,6 +291,7 @@ getPayoutDistributions(
          })
       });
    }
+
 };
 
 window.api = api;

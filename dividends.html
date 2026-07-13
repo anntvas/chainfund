@@ -2,39 +2,283 @@
 <html lang="ru">
    <head>
       <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
+
+      <meta
+         name="viewport"
+         content="width=device-width, initial-scale=1"
+      >
+
       <title>Дивиденды — ChainFund</title>
-      <link rel="stylesheet" href="css/shared.css">
+
+      <link
+         rel="stylesheet"
+         href="css/shared.css"
+      >
    </head>
+
    <body>
-      <script src="data.js"></script><script>mountNav()</script>
+      <script src="data.js"></script>
+
+      <script>
+         mountNav();
+      </script>
+
       <main class="container content">
-         <a class="back" href="dashboard.html">← Назад</a>
-         <h1 class="page-title">ВЫПЛАТА ДИВИДЕНДОВ</h1>
-         <p class="lead" id="subtitle"></p>
-         <div class="grid grid-3 mt" id="summary"></div>
-         <div class="card" style="margin-top:24px">
-            <h2 class="card-title">РАСПРЕДЕЛИТЬ ДИВИДЕНДЫ</h2>
-            <div class="grid grid-2">
-               <div class="field"><label class="label">Сумма дивидендов (ETH)</label><input id="amount" class="input mono" type="number" min="0.01" step="0.01"></div>
-               <div style="display:flex;align-items:end"><button class="btn btn-primary" style="width:100%;margin-bottom:18px" onclick="preview()">Рассчитать</button></div>
+         <a
+            id="back-link"
+            class="back"
+            href="dashboard.html"
+         >
+            ← Назад
+         </a>
+
+         <h1 class="page-title">
+            ВЫПЛАТА ДИВИДЕНДОВ
+         </h1>
+
+         <p
+            id="subtitle"
+            class="lead"
+         ></p>
+
+         <div
+            id="page-error"
+            class="notice"
+            hidden
+            style="
+               margin-top: 18px;
+               color: #fca5a5;
+               border-color: rgba(239, 68, 68, .35);
+               background: rgba(239, 68, 68, .08);
+            "
+         ></div>
+
+         <div
+            id="page-success"
+            class="notice"
+            hidden
+            style="margin-top: 18px"
+         ></div>
+
+         <section class="grid grid-3 mt">
+            <div class="card">
+               <div class="label">
+                  СОБРАНО
+               </div>
+
+               <div
+                  id="raised-amount"
+                  class="stat-value mt"
+               >
+                  —
+               </div>
             </div>
-         </div>
-         <div class="section-title" style="margin-top:32px">
-            <h2>ТАБЛИЦА РАСПРЕДЕЛЕНИЯ</h2>
-            <span class="line"></span>
-         </div>
-         <div class="table">
-            <div class="tr head cols-4">
-               <div>Вкладчик</div>
-               <div class="right">Вложено</div>
-               <div class="right">Доля</div>
-               <div class="right">Получит</div>
+
+            <div class="card">
+               <div class="label">
+                  ВКЛАДЧИКОВ
+               </div>
+
+               <div
+                  id="contributors-count"
+                  class="stat-value mt"
+               >
+                  —
+               </div>
             </div>
-            <div id="rows"></div>
-         </div>
-         <button class="btn btn-primary mt" onclick="distribute()">Подтвердить выплату в MetaMask</button>
+
+            <div class="card">
+               <div class="label">
+                  РАСПРЕДЕЛЕНО
+               </div>
+
+               <div
+                  id="distributed-amount"
+                  class="stat-value mt"
+               >
+                  —
+               </div>
+            </div>
+         </section>
+
+         <section
+            class="card"
+            style="margin-top: 24px"
+         >
+            <h2 class="card-title">
+               РАСПРЕДЕЛИТЬ ДИВИДЕНДЫ
+            </h2>
+
+            <p class="muted small">
+               Введите сумму дивидендов. Она будет
+               распределена между вкладчиками
+               пропорционально их вкладам.
+            </p>
+
+            <div class="grid grid-2 mt">
+               <div class="field">
+                  <label
+                     class="label"
+                     for="profit-amount"
+                  >
+                     СУММА ДИВИДЕНДОВ, VFT
+                  </label>
+
+                  <input
+                     id="profit-amount"
+                     class="input mono"
+                     type="number"
+                     min="0.000000000000000001"
+                     step="any"
+                     placeholder="Например, 2"
+                  >
+               </div>
+
+               <div
+                  style="
+                     display: flex;
+                     align-items: flex-end;
+                  "
+               >
+                  <button
+                     id="preview-button"
+                     class="btn btn-primary"
+                     type="button"
+                     style="
+                        width: 100%;
+                        margin-bottom: 18px;
+                     "
+                  >
+                     Рассчитать распределение
+                  </button>
+               </div>
+            </div>
+
+            <div
+               class="notice"
+               style="margin-top: 4px"
+            >
+               После расчёта появится таблица
+               распределения и кнопка подтверждения
+               транзакции в MetaMask.
+            </div>
+         </section>
+
+         <section
+            id="preview-section"
+            hidden
+         >
+            <div
+               class="section-title"
+               style="margin-top: 32px"
+            >
+               <h2>
+                  ТАБЛИЦА РАСПРЕДЕЛЕНИЯ
+               </h2>
+
+               <span class="line"></span>
+            </div>
+
+            <div class="grid grid-3 mb">
+               <div class="card">
+                  <div class="label">
+                     ПОЛУЧАТЕЛЕЙ
+                  </div>
+
+                  <div
+                     id="preview-recipients"
+                     class="stat-value mt"
+                  >
+                     —
+                  </div>
+               </div>
+
+               <div class="card">
+                  <div class="label">
+                     СУММА К РАСПРЕДЕЛЕНИЮ
+                  </div>
+
+                  <div
+                     id="preview-total"
+                     class="stat-value mt"
+                  >
+                     —
+                  </div>
+               </div>
+
+               <div class="card">
+                  <div class="label">
+                     СТАТУС
+                  </div>
+
+                  <div
+                     id="preview-status"
+                     class="status mt"
+                  >
+                     ПОДГОТОВКА
+                  </div>
+               </div>
+            </div>
+
+            <div class="table">
+               <div class="tr head cols-4">
+                  <div>Вкладчик</div>
+                  <div class="right">Вложено</div>
+                  <div class="right">Доля</div>
+                  <div class="right">Получит</div>
+               </div>
+
+               <div id="distribution-rows"></div>
+            </div>
+
+            <button
+               id="confirm-payout-button"
+               class="btn btn-primary mt"
+               type="button"
+               style="width: 100%"
+               disabled
+            >
+               Подтвердить выплату в MetaMask
+            </button>
+         </section>
+
+         <section style="margin-top: 38px">
+            <div class="section-title">
+               <h2>
+                  ИСТОРИЯ ВЫПЛАТ
+               </h2>
+
+               <span class="line"></span>
+            </div>
+
+            <div
+               id="payouts-loading"
+               class="muted"
+            >
+               Загрузка истории выплат...
+            </div>
+
+            <div
+               id="payouts-empty"
+               class="card"
+               hidden
+            >
+               <p
+                  class="muted"
+                  style="margin: 0"
+               >
+                  Выплат по этой кампании пока нет.
+               </p>
+            </div>
+
+            <div
+               id="payouts-list"
+               class="grid"
+            ></div>
+         </section>
       </main>
+
+      <script src="js/api.js"></script>
       <script src="js/dividends.js"></script>
    </body>
 </html>
